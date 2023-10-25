@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+
+        }
+        table{
+            width: 80%;
+            margin-top: 5vw;
+        }
+        thead, tbody, th, td, tr{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tombol-area">
+            <button class="btn-add" id="btn-add">
+                tambah baris
+            </button>
+        </div>
+        <table class="table-data" id="table-data">
+            <thead>
+                <th>Nama produk</th>
+                <th>Harga produk</th>
+                <th>Asal produk</th>
+                <th>Gambar produk</th>
+            </thead>
+            <tbody id="data"></tbody>
+        </table>
+
+
+
+        <script>
+            const makanan = [
+                {nama : 'sushi', harga : 130000, asal : 'jepang', gambar : 'url'},
+                {nama : 'bakso', harga : 5000, asal : 'indo lah', gambar : 'url'},
+                {nama : 'pizza', harga : 123456789, asal : 'zimbabuwe', gambar : 'url'},
+                {nama : 'salmon bakar', harga : 987654321, asal : 'indo jg', gambar : 'url'},
+                {nama : 'pecel keju', harga : 987654321, asal : 'selokan', gambar : 'url'}
+            ]
+            makanan.forEach(el =>{
+                const data = document.getElementById('data');
+
+                const row = document.createElement('tr');
+
+                // data nama makanan
+                const nama = document.createElement('td');
+                nama.innerText = el.nama;
+
+                // data nama harga
+                const harga = document.createElement('td');
+                harga.innerText = el.harga;
+
+                // data nama asal
+                const asal = document.createElement('td');
+                asal.innerText = el.asal;
+
+                // data nama gambar
+                const gambar = document.createElement('td');
+                gambar.innerText = el.gambar;
+
+                data.append(row);
+                row.append(nama);
+                row.append(harga);
+                row.append(asal);
+                row.append(gambar);
+            })
+            
+        </script>
+    </div>
+</body>
+</html>

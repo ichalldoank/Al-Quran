@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Great Vibes' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        background: #00ff84;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        width: 30%;
+        background: #000000;
+        padding: 30px;
+        font-family: 'space grotesk';
+        border-radius: 10px;
+        box-shadow: 1px 1px 15px #000000;
+        margin: 10px;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .content {
+        margin-top: 30px;
+        line-height: 30px;
+        margin-bottom: 30px;
+    }
+
+    .button {
+        background: #ffffff;
+        margin-top: 30px;
+        padding: 10px;
+        border-radius: 10px;
+        font-family: 'space grotesk';
+        color: #000000;
+        text-decoration: none;
+        border: #000 solid;
+    }
+
+    .button:hover {
+        background: #000;
+        color: #ffff;
+        transition: ease-in 0.4s;
+    }
+
+    .hero {
+        width: 100vw;
+        height: 100vh;
+        background: tomato;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .about {
+        width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .card-image{
+        width: 250px;
+        margin-bottom: 20px;
+    }
+    .rpl {
+        width: 100vw;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        background: #000000;
+    }
+    .card-img{
+        margin: 5px;
+        width: 55%;
+        height: 50%;
+    }
+    .card2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 20%;
+        height: 40vh;
+        border-radius: 20px;
+        margin: 10px;
+    }
+    
+</style>
+
+<body>
+
+    <div class="container" id="container"></div>
+    <div class="hero" id="hero"></div>
+    <div class="about" id="about" ></div>
+    <div class="rpl" id="rpl" ></div>
+
+
+    <script>
+        const container = document.getElementById('container')
+
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        const title = document.createElement('h2');
+        title.textContent = "Contact Us 🫠"
+
+        var garis = document.createElement('hr');
+
+        // elemen untuk konten
+        const isi = document.createElement('p')
+        isi.classList.add('content')
+        isi.textContent =
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque exercitationem voluptate, temporibus voluptatum id placeat qui tempore fugiat, sed blanditiis hic, laborum deleniti quam a eius. Totam eligendi aliquid eveniet voluptatibus, corrupti debitis commodi nemo culpa quasi, cum dolore veritatis dolorum id soluta nostrum saepe ipsam animi! Porro, placeat ducimus aliquam quisquam consequatur, nemo nostrum harum obcaecati totam deserunt non enim animi magni eveniet cupiditate! Dolores nihil aspernatur excepturi ratione totam laboriosam. Provident non pariatur reprehenderit consectetur iste debitis voluptates commodi. Nostrum tenetur quis, rem quia accusantium eligendi nihil praesentium laudantium quod repudiandae beatae cum dolore totam';
+
+        // elemen untuk button
+        const button = document.createElement('a');
+        button.classList.add('button')
+        button.href = 'https://www.instagram.com/kla.kall';
+        button.textContent = 'follow me'
+
+
+        container.append(card);
+        card.append(title);
+        card.append(garis);
+        card.append(isi);
+        card.append(button);
+
+        // ============================================ //
+        const hero = document.getElementById('hero');
+
+        const minuman = ['mizone', 'pocari sweet', 'aqua', 'fanta', 'cocacola', 'groof beer', 'yakult'];
+
+        minuman.forEach((item) => {
+            const kartu = document.createElement('div');
+            kartu.classList.add('card');
+
+            const textdrink = document.createElement('h3');
+            textdrink.textContent = item;
+
+
+            hero.append(kartu);
+            kartu.append(textdrink);
+        })
+        // ============================================== //
+
+        const about = document.getElementById('about');
+
+        const cardAbout = document.createElement('div');
+        cardAbout.classList.add('card');
+
+        // cara memasukkan gambar kedalam card (pake JS)
+
+        const cardImage = document.createElement('img');
+        cardImage.classList.add('card-image')
+        cardImage.src = 'sheeeshh.png';
+
+
+        const cardContent = document.createElement('div')
+        cardContent.classList.add('card-content')
+        cardContent.textContent = 'Taunting adalah tindakan atau perilaku yang dimaksudkan untuk mengejek, merendahkan, atau mengganggu orang lain dengan tujuan memprovokasi atau memancing reaksi negatif dari mereka. Dalam konteks permainan atau olahraga, taunting sering dilakukan untuk mengganggu lawan atau merendahkan mereka secara emosional Dalam permainan video, seperti Mobile Legends, taunting seringkali dilakukan melalui penggunaan taunting emote atau gerakan karakter yang dirancang untuk mengejek atau merendahkan lawan. Hal ini dilakukan untuk mengganggu konsentrasi lawan, membangun kepercayaan diri sendiri, atau menciptakan suasana permainan yang lebih seru.'
+
+        // ============================================== //
+        // study case 
+
+        let dataLoop = ['thop', 'arkan', 'iki', 'imam', 'nopal', 'virja', 'keenan', 'vallian', 'ammar', 'ilyasod', 'gwejh', 'azka savir', 'rehan', 'fathi', 'azka baiq', 'ihsan', 'dzu', 'mauludy', 'mawaldy', 'reevino']
+        dataLoop.forEach((item) =>{
+        const rpl = document.getElementById('rpl');
+        const cardrpl = document.createElement('div');
+        cardrpl.classList.add('card2');
+        cardrpl.style.backgroundColor = "#87ceeb"
+        cardrpl.style.margin = 30;
+
+        // masukkan img dalam cardnya
+
+        const cardImg = document.createElement('img');
+        cardImg.src ='sheeeshh.png'
+        cardImg.style.width = 250
+        cardImg.classList.add('card-img');
+
+        const cardcontent = document.createElement('div');
+        cardcontent.classList.add('card-content');
+        cardcontent.textContent = item;
+
+        rpl.append(cardrpl);
+        cardrpl.append(cardImg);
+        cardrpl.append(cardcontent);
+        });
+
+
+
+
+
+
+        about.append(cardAbout);
+        cardAbout.append(cardImage);
+        cardAbout.append(cardContent);
+        
+
+        AOS.init({
+      duration: 1000,
+      once: false,
+    });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

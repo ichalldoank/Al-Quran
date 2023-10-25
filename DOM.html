@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple DOM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="date">Tanggal hari ini</h1>
+    <h2 class="tagline bg-white card"></h2>
+    <div id="container">
+        <p class="text-title"></p>
+        <p class="text-title"></p>
+        <p class="text-title"></p>
+        <p class="text-title"></p>
+    </div>
+
+    <script>
+        let area = document.getElementById('container');
+        area.style.backgroundColor = ('#0088cc30')
+        area.style.width = "100vw"
+        area.style.height = "100vh"
+
+        // area.getElementsByClassName("text-title")[0].innerHTML = "saya sedang bljr js";
+        // area.getElementsByClassName("text-title")[1].innerHTML = "materinya adalah DOM";
+
+        document.querySelector('.text-title').innerHTML = "saya belajar js"
+
+        // untuk menampilkan tanggal di HTML
+        var tanggal = Date();
+        // untuk memanggil document HTML yang id nya adalah date
+        var textDate = document.getElementById('date');
+        textDate.style.color = "#0088cc"
+        textDate.innerHTML = tanggal
+
+        let tg = document.getElementByClassname("tagline")[0]
+        tg.innerHTML = "hari ini adalah hari jum'at"
+    </script>
+</body>
+
+</html>

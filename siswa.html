@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa</title>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <th>Nama Lengkap</th>
+                <th>Jurusan</th>
+                <th>Alamat</th>
+                <th>instagram</th>
+            </thead>
+            <tbody id="list-data">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        const xhr = new XMLHttpRequest
+        const listData = document.getElementById('list-data');
+
+        xhr.open('GET', 'data.json' );
+
+        xhr.onload = function(){
+            if (xhr.status === 200){
+                // kita kana tampilkan datany disini
+                const data = JSON.parse(xhr.responseText)
+
+                data.forEach(el =>{
+                    const row = document.createElement('tr');
+
+                    const nama = document.createElement('td');
+                    nama.innerText = el.nama
+                    // console.log(data);
+                    listData.appendChild(row);
+                    row.appendChild(nama);
+
+                    const jurusan = document.createElement('td');
+                    jurusan.innerText = el.jurusan
+                    // console.log(data);
+                    listData.appendChild(row);
+                    row.appendChild(nama);
+
+                    const alamat = document.createElement('td');
+                    alamat.innerText = el.alamat
+                    // console.log(data);
+                    listData.appendChild(row);
+                    row.appendChild(nama);
+
+                    const instagram = document.createElement('td');
+                    instagram.innerText = el.instagram
+                    // console.log(data);
+                    listData.appendChild(row);
+                    row.appendChild(nama);
+                    row.appendChild(jurusan);
+                    row.appendChild(alamat);
+                    row.appendChild(instagram);
+                });
+
+                
+            }
+            else{
+                console.log('Data gagal dipanggil');
+            }
+        }
+        xhr.send();
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKL IT</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width: 100vw;
+        height: 100vh;
+    }
+    .title{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 3px 5px gray;
+    }
+    .isi{
+        width: 100%;
+        height: 90%;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="title"><h1>Al-Quran</h1></div>
+        <div class="isi">
+            <table>
+                <thead>
+                    <th>Nama Surat</th>
+                    <th>nama latin</th>
+                    <th>jumlah ayat</th>
+                    <th>tempat diturunkannya</th>
+                    <th>arti</th>
+                    <th>deskripsi</th>
+                    <th>audio</th>
+                </thead>
+                <tbody id="list-data">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        const api = 'https://equran.id/api/v2/surat'
+        const listData = document.getElementById('list-data');
+
+        fetch(api).then(response => response.json()).then(data =>{
+            data.forEach(el => {
+                const row = document.createElement('tr');
+                const nama = document.createElement('td');
+                nama.textContent = el.nama;
+
+                const namaLatin = document.createElement('td');
+                namaLatin.textContent = el.name_translations.id;
+
+                const jumlahAyat = document.createElement('td');
+                jumlahAyat.textContent = el.jumlahAyat;
+
+                const tempatTurun = document.createElement('td');
+                tempatTurun.textContent = el.tempatTurun;
+
+                const arti = document.createElement('td');
+                arti.textContent = el.arti;
+
+                const deskripsi = document.createElement('td');
+                deskripsi.textContent = el.deskripsi;
+
+                const audioFull = document.createElement('audio');
+                audioFull.setAttribute('controls','');
+                audioFull.setAttribute('src', el.audioFull);
+
+
+                listData.appendChild(row);
+                row.appendChild(nama);
+                row.appendChild(namaLatin);
+                row.appendChild(jumlahAyat);
+                row.appendChild(tempatTurun);
+                row.appendChild(arti);
+                row.appendChild(deskripsi);
+                row.appendChild(audioFull);
+
+            });
+        });
+    </script>
+</body>
+</html> -->

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Great Vibes' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <title>Menu Makanan</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: 'poppins';
+        }
+        .container{
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffca80;
+            padding: 30px;
+        }
+        #btn-add{
+            border-radius: 13px;
+            padding: 5px 5px 5px;
+        }
+        #btn-remove{
+            border-radius: 13px;
+            padding: 5px 5px 5px;
+        }
+        .header{
+            width: 80%;
+            display: flex;
+            margin-top: 5vh;
+            justify-content: space-between;
+        }
+        .content{
+            width: 80%;
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+            grid-gap: 20px;
+            margin-top: 25px;
+        }
+        .title{
+            font-size: 2.0em;
+        }
+        .card{
+            width: 95%;
+            border: 5px solid white;
+            border-radius: 15px;
+            padding: 10px;
+            background-color: #ffa01cbd;
+        }
+        .card-image{
+            width: 100%;
+            
+        }
+        .card-image img{
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+        }
+        .card-content{
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .price-title{
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-family: 'lexend';
+        }
+        .form-area{
+            width: 30%;
+        }
+        form{
+            width: 100%;
+        }
+        label, input{
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">
+                <p>Pricelist IDN Coffee</p>
+            </div>
+            <div class="form-area">
+                <form action="#" id="form-coffee">
+                    <label>Nama Kopi</label>
+                    <input type="text" id="nama">
+                    <label>Gambar Kopi (URL)</label>
+                    <input type="text" id="gambar">
+                    <label>Harga Kopi</label>
+                    <input type="text" id="harga">
+                    <input type="submit" value="Tambahkan Coffee">
+                    <input type="reset" value="Hapus Semua">
+                </form>
+                <button id="btn-remove">Hapus Coffee</button>
+            </div>
+        </div>
+        <div class="content"></div>
+            <!-- <div class="card">
+                <div class="card-image">
+                    <img src="https://api.omela.com/storage/991/conversions/5d8390d3f3894c225135ff8689d8c9d4-large.jpg" alt="">
+                </div>
+                <div class="card-content">
+                    <p class="price-title">IDR 25000</p>
+                    <p class="coofee-title">latte caramel</p>
+                </div>
+            </div>
+        </div> -->
+
+    <script>
+        const content = document.querySelector('.content');
+        const add = document.getElementById('btn-add');
+        const rev = document.getElementById('btn-remove')
+        const data = [
+            {
+                gambar: 'https://api.omela.com/storage/991/conversions/5d8390d3f3894c225135ff8689d8c9d4-large.jpg',
+                harga : '25.700',
+                nama : 'Creamy latte'
+            },
+            {
+                gambar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR7JA08kpcz1l85MqM7C1l5KTW5Rv28iqcgg&usqp=CAU',
+                harga : '23.200',
+                nama : 'Cafe latte'
+            },
+            {
+                gambar: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgWFhYYGRgaGhoeHBocHBgaGBoeHBoaGhoaHBgcIS4lHB4rIRoYJjgmKy8xNTU1GiQ7QDs0Py40NTEBDAwMEA8QHxISHzYrJSw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NP/AABEIALIBGgMBIgACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAADBAIFAAEGBwj/xABAEAABAwIEAgcFBQcDBQEAAAABAAIRAyEEEjFBUWEFBiJxgZGhEzKxwfAHQlLR4RQVYnKCkvEWorIjQ1NUszP/xAAZAQADAQEBAAAAAAAAAAAAAAABAgMABAX/xAAqEQADAAEEAgECBgMBAAAAAAAAAQIRAxIhMUFRIgRxE2GBkaHRQrHB8P/aAAwDAQACEQMRAD8A8xC2SoBS2TACsTVAjdIsKM0pWhkw1Rt7FbpkgqDnLTKixhtjyHBO4sDsvB71WmrcJ19YFkIozLKnimy2I8Uzjcwe14PBUlCpmbzCbq4k5GnhZN4N5L3DYgtqNJ3t5rMdmbiA4aFVdTFywHcQn+kK7nMY4oLyavBaPzEHRTfLmA7hV4rO42IRMDipY5hIT55FxwW2GcS252U8Me1Eqlw2IIME2lOPcGuDg5Ll4DtWSyxjRElCwFQEkKLsUx7dVrDPYHAys64DK8DgtMJTE4UvuDBCdfWbNisq1WRqAUM5NtwV1BkWOycqgSIWqb2ZruCazMiRshuC5QjUBUxTzDwTIxDDZbZiWCwRVAciFNkFNtZff/KHVrCbD6KI2tpdBsKQTDsLTyU8VS3ChUqAi58kb2zMuqK7A1wIUGhroJsU62m0jWUm+szNeOKcZimaR81vJvBHIILUrT7LiPzTbsRdIV3kOnnxRMHDXSQkn0iHGd02ahMHMElj8Nn1fHisAVjY9yW/aG/iRKTBTJaXZp4rUj8KbLEwjzCFJgUVJpSDGwFNqgXLGvWMhlgBCxrQhMqKXtEA5QYHkmaJkEQk6dSE9h8QA7ZDobslhs2gb6prOcuUt7r/ACQGYp2YxHkmaUvN3gLZMkYHGBYBW1F7n0YLbjl81T4hhaBeTKtMLnyRJDSsnhhxk1QYSBM25KdOGPIgwUDDU3EkB414qzwvR76rw1gL3RsCfGdhzKO5ASI1GAgmCp+80dn1XWYDqa6Aa1TKPwtuf7tB6ph9To7DjKYeRrOap5gdn0Wdpd8Gyulyc1SYIAyt8EkGFpPZ35rqHde8OyzKB3jIGbW0GiEftIb/AOvUj+nZJ+LGOw7az0U5qkxaESo3MOatB9oVB1n4d/i1jvQkWT1DpXo2s2ZYwkT/AOMjv2lNOpPsDz5Rxjswg/NOUXkg8+a6fFdV2PZNCo1wNwHRB7nt/JUGJwrqDg2oxzSdJEg9zhYrOvIVhiu4MwmWgbFKVazeBsVNmJbaAUNw+0ZqjKddQh1Ccs3sQVF1QFoN0Br3G07FZ0ZSHZXtCZoS4KqbmnXb4Kyw73FuuiG7kLngBjGEARsVKhVJA/KUSq0nMCeaBQYCSJj0RqgTIxXqQRfVRxYJafNRrtGUW0WUq3ZAHcsrM5FWPMalDxVY5bXhbrv7OgkcrqOYuYb7JlYrkVqVHkNdHLdZnfxCzOCyC7Tmh+zZ+NbeBwcIVkqRY7gs9k7gjknhkCVgKkaTuC37J3BDKNhmNCKKJ2UWsdwTNF7xo30Qb9BU+yDMK47I1KgWkSCpjGVB930Wzi6p+76JM0PiTKhAd2QYRG1y24QnV6n4PRQ9o8/c9EefJuPA6/E5m81ZUMR2WkkeapGUqrtGei7/AKh9U3VIxGJaBTHuUz/3CPvO/g4Dfu13Zt23sb6tdVzVPtXyymbj8T/5RsP4vJdDi+nMNhWmnRaC4WIbeDe73b6czolOsPWDNmo0SdIL2yIIIlrSNbcFS4Xo6TncTmvJMAnffmuXW+pUvE9lY0nSzXXoFjukcTiYLnlrCPdbmaNSDLd7bGe9BodByLniLTcaGJ0taRey6KhhQIkd14Bnv3239U6ymALyCOIJnvEGbbLkd3by2dCUysJHPt6DaBoT3fO99Sp/uJp2EfnK6ENAMbai0GbzJzXEX0H5GgcSdrRMyZAOoM/FbY/Zt5yb+gm6achH5d10rV6DjQg/zN5mLi885XbGgNb227M3kfV0L9madC28mBAPPv2B77o7aXTNvlnB0sLXoEPpvLIN4Jg8ZaNZXS9GdcQ4ezxbA5pMF+U5eUtj1HluncR0dEy20dxPj4cVU47oqbhs8jMcPGxP6IzrXDA9OaLPpLq81zfa4Yh7CJyi5j+E/e7tVydRxBIA0PBWHRmPqYV8sPZJ7VMns7XafunUD5roek8M3FUTiMM0GpEuYYBcRqDwfwOh9V1zqrUWZ79EcOHiuvZytKoYdLUkx7i+Bx+KSr9P1hI9kRyIIjwhIUenHAyWX8Uc1jobM57Leo14dE7p7A4VxEk2XO/vx2aTT35qwwnWsMBHsilbv0FOfZesIMCDMQoMYc4Cpm9a2/8AjMoY613n2ZR3W/BvgucnUYhhyloSmFou0jdU563lxtSMd6gzrblPuHzRxYN0F5X6NcSZ3UKHRZGo+u5VB65E/cPmFv8A1jxYfMI4oXdI7T6IbmI+vJb/AHSeXqq3/VjJnI4HvCB/qccHeaKVG3ycs4otO6gGkhYwlpTvkmuCT2kFTDCdFN5LhMXQw4oJ5GaCMbxKZYOBScqbHkIMyDuniiAGEs6ootqlDkPBdYGu0e9ug1rOluhVf7eEZj8/ZuSdANZ2A5rLIXg6nqf0EcTX7U+zpwXn8U+6zxi/IHku16y9K5Q2lRImS1wAsIEBvL5RwlG6MwP7Fg2sBbnMF7jJlziA421iQB3BUTGElzjMuJgzIgmT3ybzPDdR+p1di2z2+waUb6y+l0RwOCa3nYbX+rnXirSkOWnKXenwug0+U24NEmNd4nTzGuiI+oJmRA2iAbXttf62XAvbOp+hikAT2B6Se+2oiDsm8PgXmQT4xHoUoMa8iGDvcIk95J+FlouqS3M+ddT6EaBOqS7FaZZDBNmDVYDuBEeITNPo1pFng9wB+B+oSNI1DAGQ94HxTYfl/wD0pR/EwflddEOX2iNbl0zHdGPFw4H58vlCUfTez3m723Ot4J081c0KgcJY+RwN/wBQih4NiPA/V1b8GWvi8fyia1Wu0UAfBuWkc7nmCZuDbabKApEgSAXb2IB2kakHkSfBWeM6O3YB/LoFVMqRxBt3EiwJdM7AXE6KFy5eKLTSayitxeDF7XH1obJHB1n4apnYSQZzNgw8CbcrzBjzm/SPcHX377EDcXVXiaYIv8/RczzFbpK8WsMF1t6MFVgxdA2Il7Y/3xsRof8AK4cUnzO3gvQ+r+KDHmi4EsqccsZogggC2YeoHFcp1hwv7PWfS+77zDxYdPK48F3rU3yqX6/cjM4bl/p9ipbJMEjyTLKRbrB8Al21GEStjEN1lHI+B4MbEwPEBEwzmTlc1vkFXvrgXBt9bIbKpJmVucdm8lzRyMfGRvkFnSGCY/tNY3yCqaryIIMp/B9IgtIcQFluQKwLtwTG6NZ3EBRq4VmuVvkB6LH4xmxusa4OFig6rPIVMtcC7aDDoxp8AED9lZ+Bvkj06gBIIAUpZ9D9UXTF2o5em2LLVRh1URxTVsvNUp4ZKVkzCPmx3Q30+1CgyxTdWmC3MDdB8MZcoVLFmQlbC2Ho5YOCGRbLFvMjEbwtlmSQtkXVfZ90b7XFsJEtpy894sz/AHEH+lc5C9J+y7DhlPEVo3DfBjcxj+/0TJ88i3wngvem6+d5HPKNLBs5jfiZH9KqieVjaJ7zxlNY8XJ7hrH+UmH31j4azr9BeTqVut0zr052ykhg94mfG4HkNVulQzAkGIFwZ7XEW17jNwEu0Zja172uOIgb2mFcdH4NzzDbAak7cN9ddihMunhBqlKywuBw+eGw0hvExby5f4Tr8A5ugB5BS/c3B/p8wZWga1LU52+PlckrrnS2z80/ujmq9z+L/QNh2032LMrx5+CK6m9l2nO3dp1A5HdQc1ldsizhod2lZgsQ8HJU1nsniNpV5SWPz6a/6Sef7TNfszH9umcr+I0ng4brGYkzkeIcPrM3kp4mkWO9oz+puxHHvWVWtrMDmmHC7TwK2Gm0uH68M2U8Z69+hljo3kHQ8VX9K4ORnaLgyY7tVnR+IJljwRsRwO+hMcdd1YsOx/ym+OrOP/Jgy9OsnNZiNRa0Dc6XItF50PNRqvkA7bWjkQATa8pvpKhlfHEEixjmLJEfetfX5a8LCy8+8rMs7Jw1lFfjGHUEiCIdw/CRznKfoLXXjDmvhaWJZAew5X9zrEeDxHiU1XbNxAO/HgmMBhTXwuIoSJdOXkXNBB/vBKf6WsU59r+RdZYSr0zyUOcww7dSLfVdq77Pa5F3snvK2z7P64A7TPM/kuxqvCArj2cfh2SI3Vjh6PZsF0bOoWIDpDqcd7vyQOkejn4azwL6EXBjwUNXfKzgtpVFPCZQ5LEKFFjZ7U/JMvqAuS+JeGkgEcUs6leClRL7NYrCtBDm2G+y0acCxv3ojS1zDqTwSjMRHgVV26RFQpoBjGEX81D2nL4p1xDmlVftSjL4EqeSrylO4QD7yELwVEuurVysEZ4eQ1ZgBtoncCGkEFIVLhZhauVwSNNyPLxQR9OCULLdNY4XB4pQmEZeUClhknsU6btpUJkLGMMo44BkJHFerdQmZej5/E90/wB4Z8AvKnMIvK9X6iGej2jhUd/9ZW/xePTEvtfc3j7mQTqdjyOpF9uSSFQTsd/DUEjb9Fb4qtTEh7HGZ0vHhaDcHyVa0NPuzA0BAgCOIuN15VJLpnZDfoLg6TZnf8NzYf5Oy6DD4J47TCWz4C3KVT4agSYBgjhw8Tp+SvsP0jAgkOjf9VXR25+XHrBPWb8EDicQz3mhw+tx8Y8E9RxjXiHDKeB/ND/eA3Cl7dh0AJ7l2zWHxWV+Zy0s9rH2BvwxY7Ozyjb8kStTFRkizhpOo5I7G8gFIX0vzVVprDXh+P6F3PvyCwlYkZX2cPVLhhpPkTkeb8Gn5ApyoWgSVqk4uF25RwOv6LOM4TfK6f8AZlXbxwV/SFLK8VGjWA4iJtMTyunqb8zQ4a7qNWs1rgwCSdht38FKlQDdOzxA0STOKbnrz9wt5lZBY/D52yPebcKocwuZ/EwyRxaeMzz8lfsO40SWJr0gTOuhj5qWvpy3uylkppW+sHPVByiOfyT/AFekVHiAJYDpHuuPn7/osxFJpaXMIy6jUHmeYQ+rZJrPkaMI9Wrl0Vt1kX1Xu02dMXrQeqN3WTDTBrMnhmCw9ZcMNazB4r2Mo8/n0XheuT6+tBps45/iFZN6x4Y6VWnuM/Bc31m6YZXcxjDIaZJiByF1DXuVD5Oj6aLeong5I0CDppdL4ik4iYK6A0HO7QPfogup2IdvzXmRq8nrVCaOdwGKyPuFrE1u2TESmX02tffipYwsdBAXQqW7KXZBp4x6EXuIAI+pS/7K7n6qyfWaW2HwQf24cE+5+hds+WUbagWPqhLteFtz11bTiyN0nyI/JCLSChMfCnUcUMYYc5Q8+XMnglNVLDVDdqjGoSpY4C3nk0LbrZdO6G9l1op8IXIYvEar1D7LsTmwtZmpY8kDvaHD1BXlDWrt/stx4ZiXUybVGf7mEkDyLvJFJdexbbxn0dr01RvIHqAdtBZV2CqXJ1873MmBYbyrzpfDktI3bad7e6eciPNc+x5DjBmY1mdb+nwXkas7Xg7dOsyXfQvbL2xchwnuIjXuUmUmsPaMxayqujaxp1g6TE34QeWgjTw3XTY7DtbLoljyD/IeI5bozO6crx/oW621j2LlzAey6Z2Jgp3BNJuHN+Kra2GdZ3vsP3mxI+rpnDYSk/3XuaeE3/VU09yrr+SdY29lxk/EZ9AhPxgnKwZjy0HeUNnR7NyT3uPwTLSxg+60eS780/S/k5uPuap0CSHPueGwWsbiwwWBc46Aa9/cl39Jh1qYznj90eKlhsH2s77vIufyB0Q3Z+On+rDjHNfsTweHAJeR2naouIdJDBvr3b/kt4iu1jZJ/Xkh4Wmbvd7ztuA2CbhfBfqDl8sniX5WE8AuZo0TUcbAXguv38eeytumq+jBBOpHwVBmOlxF/f7M2+7AkkyJB4WXD9TarUx4R16MtTn2WbA1jHNDsxmOQ8eSF0XUDBXqE2ZTkmI0BJ/4oVGIjTWfmfMyq/rRifY9GVDPbrHIL7OMf8GuPik+nW7UT9Jm1eJa9s8tGKIM7zPncq/p4oPpkE3FwuVIkA+Cf6Mqlpg9y6tXTTnPkbSvDx4L7o2vNp0uE7Vc1rw+LOHqqHC1Mr54FPYyrLbHQriuPl9zsmuC3oYuARsh1sUw7KqoYnZBq1IN+KVaPyyF6nBnSDxmsAJSrKk2RMaMwzAABI0yQV2TK2nNVfIf9mBvqlsnf6ojTI10WQFuQPBzxWBRlaC7cHBkK1Hyy1KotE7JaQ6Zppgo7zBBS72mVMtkLMyYR5shZljGyhlpCyRmyZcmMBjXUqjKrfeY4OHONR4iR4pFwUmJsCZzwfQ9J7MRRbVYQQ5gPpY+Uz3BcxiqOR/mdNbad+1/1VT9l/WANJwtQ2MlhPP3m/MeK7Xpno/MCbzxm3Ix4Ll+q0VXykpoam17Wc3iZLSYlwBvMCNeGlhtsr7q10rnHsnwdmzeRwPPl3LnLtMEW4ctiL3Fx4KNaRD2i4E294EC3qDqeN1w6dOK4Oq5VThnbuwr6RzUu0w3LDqP5fyRGClVE5YdvMtcDwKouh+shHZqX5wRHJdHTrU6jZBBngYPmu6HFLh/o/8AhyUqnv8AdC/7uBPvPH9X6IrejGb37zPopswsABr3COeb4rBhn3/6rv7W2TLSS7kXe/YxSotbpCBW6QaDlb23/hbeO87BS/ZQfec53ebeQWjWp0xEtaOAgegVG9q8JCpZftmU8MS7O8ydh91v5nmp4vGMpiXmFWYrpsCzATzj5KkxFYvcS8kwJte3Ly0hc2p9TMrbp8v2XjRqnmuAmNq53lweb6WM8wPTZRogWBG5jUAXM+iA95cSIblJ7IjtCNY22R2siCZiL+NtBbfivPzk7MYQ7TYX9gWJNoIsLySNhE+McVxf2mdKB9VuGZ7lFt+GcgW8Gx/cV2PSfSTcFhnV3xncMtNuhk3aL3/iPABePse55c93ac4kuJ3JMkr0tGNkZfb/ANHI3vrjpCNIzITFOpBQ/ZkOTFFhnTdUpoMpjTrweIRqLpkcRxKNhaMtiNCjYalBuN/iuWqSOqZZXNMRKJiDcECx5J/F4a5tzRalEGmLXQ/EXDDtfRV0QXNI+QSGV0wrqhRIOyDisIWn1TRqLLQlQ2kyupAz396n7NyJVoxcd6J7P6sqbsibTnhTK2ykU/TYJKkxl1d2cykUbhisZRIKt6lGRPKUq5l0i1MjuMClegQtU2G4Vm6jmEoLKMFZanBnPInSYQYW69G8pp1PtKdWla6O/kG3gqxSlQDE8WXQnMVFQjkhQc5rg5pIcCC0jUEXBC9l6mdZ2YynkeQ2swQRx/iHFp4bLxlbw+KfSe17HFr2mQR9aJk/D6J1PldntnTHRRMkDtDXnw5eIXPlzmGHAWNxfcxFib37t1ZdU+utPFNFKtDKo04O5tJ+Ct+keigRMdzgbcoGgPeuTX+nx8pLaWv/AI0coaLXXENOvIc524LTKr2Wm3Ekw7cZSTEx6nxTtbo97b3AvcbRqDzv6DuSuUwQTHOwO94OnD8lxNNdnWmn0O0OmKzQBmO1zpMx9HmmHdOV2m72kHSLka2dwPJVYp6Ei5mBuYmO607FTdSBsDI4QAYMQDcc47uRQWpS6b/c2yX4H39JVXXza7TtMTbuKTdiSbE7bgm8gaeKk2k73Dmg7mNTYQAddNtxrsZ2DcLxBO+/PTTwSt55YySXQBpkHcRIBEOIMcTYTI8B4zp0xPmQeBsL35phlGNZJNtB9c48k1hcEX2A1nTUfp3oJOnhGdJLLIU6QIk2PHbbYq1YxlJhrViGsYJA+cceA4laxVSjhWe0rvEj3Wi8ngG6uPoPVeZ9Z+sVXFPBMtpg9int/M47u+C7dLQUfK+/C/s5qt3wuvYp1s6afiqxe6zG2Yz8I4n+I7+A2SfRjLkFbrYYyDxR8LSIcCnu8z2PEYfADE0YenKVETPEJjF4YkAqbKJgKFamZRZRhsLRbBtuiV6BBnisfTIAcNk4W5mA2XM68lcAKjJaDyusw9DskI4acpHBRw4dKTdwNgTFLbhZExGHloLii4igQ43UH0CWntFOq/MVorqmHaQlvZc/ROinrdL5RxHmrJ/mI0VzMMCRsmfYAIDKgICaziF0U6OaUg1GiC3XRLVMIExRrAGOSM941Ut1SymE0LYbDRqtvwgkwnaT22W3val31kO1YKuphLytuoAtTb3WW6Wibe8Acop34YIdTDBWGIbCVqaK802SqUIuw4S1SmnqhS72q80yNJCrmxpY6zuOa6/q79oVahDK3/VZpJ98Dxs7xXI1Gwl3KyZGpT7Pd+jen8FiwMj2h34XWcPA3Gp5JvE9DB4BaYM2MBw07vXluvnvS+/FW/R/WjF0YyV3xwcc4/3IVoxXaNN3PTPZKvRJHugjWbg7cr7AaITujiTGV3HQkHUbeflZcBh/tMxjbObSf3tIPoU6z7Uq++Hpn+pw+S56+jl9MqvqL9HZs6OdEQ+bXgC8JxnRTyI07456+nmuAf8AafiT7tKkz+53zCrcX11xtSQaxYODAGeuvqlX0mmu3kb8a30j1TEUcPRGfEVGtA4kNnTfU6bLmuk+v7GAswjOXtHAgeDfed4wvNzVc85nuc53FxLj5lTa26dKY4lYCk65p5LTEYqpWfnqPL3Hc7cgNAOQU30LSg0mp++Vct09x0zKwSbSzME7KbMOjYISwomHuFzVTWS0hjQlhS9FhhWOGPZglK0xDiO9Sy8NDmyzM2FPCO7OVZQCFSYQ8hL4aMMbITDdSETdBc8ZjCCWQ5CVb6oM2KJ7PMD3ofsxKdJAyV5eAYKWynh6J6vSaHaKUBXVJE2cVSxJhFbijCSY9bD16zhHmqmWFPFGQnm4wWErn88FMCoCkrSTHnUZdsxF4lOOeIXMZ+amcS7ipPQz0OtX2dC7EgapeljxJVM/Ek6lRpvuitBJcmeq88FvVxoJUHVQk3QtWWUJAdMJVqBQfUEIZYFjWqiSFbYKq5LuanKjbJd1NUlk6QFzFCEy5i1kTKgOQGVSARixayrZNgxmqKAhhqZLDqlpjJGmC6O10IbWIzGSpUyiHKVa1lYU6nYuqug2LJ+gwlpC5rSOiWFoYoskDRM4bHAJNtO2t0elQGsqVTPOSktj9PG7BRbiu1dDZR5rVWk0OFySpqZwNljFPF9ooJxLg8oPscjuMph0awlcyjJs0+o6VIugrbntOyHUqQUMGyEdXsl34sqXtAQlzyTTK8gdG8TXkhC9spVnWBjePrzQsx4BVUoV0cg1RWLF6x5ppyLTWLEH0Fdk3KLlixBGZoqdPVYsWfRl2NIOI1CxYknseuidDRSYtrFmaSVT3SoN0W1iCCyD1tYsRARcoOWLEUYk1OfdH1usWJaGk2VOktrFJ9FF2MUNU9hN1ixQsrJlLdMDULFilQ66HBohu97xWLFJdjsliNlt/uLFiz6RgFLVDxOyxYiuwPog1QGqxYqIBCv7h70FYsTz0TZ//9k=',
+                harga : '30.500',
+                nama : 'Americano latte'
+            },
+            {
+                gambar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQSok9PYauuzQ8sYJVQi-96Kkz3AuYLeazvQ&usqp=CAU',
+                harga : '28.300',
+                nama : 'Caramel'
+            }
+        ];
+        
+        data.forEach(el =>{
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            const cardImage = document.createElement('div');
+            cardImage.classList.add('card-image');
+
+            const image = document.createElement('img');
+            image.src = el.gambar;
+
+            const cardContent= document.createElement('div');
+            cardContent.classList.add('card-content');
+
+            const priceTitle = document.createElement('p');
+            priceTitle.classList.add('price-title');
+            priceTitle.innerText = el.harga;
+
+            const coofeeTitle = document.createElement('p');
+            coofeeTitle.classList.add('coofee-title');
+            coofeeTitle.innerText = el.nama;
+
+            content.appendChild(card);
+            card.appendChild(cardImage);
+            cardImage.appendChild(image);
+            card.appendChild(cardContent);
+            cardContent.appendChild(priceTitle);
+            cardContent.appendChild(coofeeTitle);
+        });
+
+
+        const formCoffee = document.getElementById('form-coffee');
+        formCoffee.addEventListener('submit', function(){
+            const nama = document.getElementById('nama').value;
+            const gambar = document.getElementById('gambar').value;
+            const harga = document.getElementById('harga').value;
+
+            const data = {
+                gambar : gambar,
+                harga : harga,
+                nama : nama
+            };
+
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            const cardImage = document.createElement('div');
+            cardImage.classList.add('card-image');
+
+            const image = document.createElement('img');
+            image.src = data.gambar;
+
+            const cardContent= document.createElement('div');
+            cardContent.classList.add('card-content');
+
+            const priceTitle = document.createElement('p');
+            priceTitle.classList.add('price-title');
+            priceTitle.innerText = data.harga;
+
+            const coofeeTitle = document.createElement('p');
+            coofeeTitle.classList.add('coofee-title');
+            coofeeTitle.innerText = data.nama;
+
+            content.appendChild(card);
+            card.appendChild(cardImage);
+            cardImage.appendChild(image);
+            card.appendChild(cardContent);
+            cardContent.appendChild(priceTitle);
+            cardContent.appendChild(coofeeTitle);
+        });
+
+        rev.addEventListener('click', function(){
+            // const data = document.querySelector('.content');
+            content.lastElementChild.remove();
+        });
+    </script>
+</body>
+</html>

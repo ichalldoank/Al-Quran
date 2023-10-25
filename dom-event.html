@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="button()">klik Saya</button>
+    <button type="button" id="tombol">Click Saya</button>
+
+
+
+    <script>
+        const tombolA = document.getElementById('tombol-a');
+        const tombol = document.getElementById('tombol');
+
+        // EVENT HANDLER (ONCLICK, ONFOCUS ETC)
+        function button() {
+            alert('Saya berhasil klik tombol A');
+        };
+        function button() {
+            alert('Saya berhasil klik tombol A yg kedua');
+        };
+        
+
+
+        // eventlistener bisa menampilkan 2 objek secara lngsng
+
+        tombol.addEventListener('click', function() {
+           alert('Saya Sudah berhasil click'); 
+        });
+        tombol.addEventListener('click', function() {
+            prompt('sehat bg ?');
+        });    
+    </script>
+</body>
+</html>

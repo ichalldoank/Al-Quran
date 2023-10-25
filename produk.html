@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Produk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .container {
+            width: 100vw;
+            display: flex;
+            margin-top: 5vw;
+            /* justify-content: center; */
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .table-data {
+            width: 80%;
+            margin: 20px 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #000000;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tombol-area">
+            <button class="btn-tambah" id="btn-tambah">Tambah Baris</button>
+        </div>
+        <table class="table-data" id="table-data">
+            <thead>
+                <th>Nama Produk</th>
+                <th>Harga</th>
+                <th>Gambar</th>
+                <th>Kategori</th>
+            </thead>
+            <tbody id="data">
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script>
+        const produk = [{
+                nama: 'Macbook Pro',
+                harga: 23000000,
+                gambar: 'https://www.apple.com/v/macbook-air-13-and-15-m2/b/images/overview/design/design-hero_endframe__olurqzgtbh6e_large.jpg',
+                kategori: 'laptop'
+            },
+            {
+                nama: 'lenovo',
+                harga: 7000000,
+                gambar: 'https://www.apple.com/v/macbook-air-13-and-15-m2/b/images/overview/design/design-hero_endframe__olurqzgtbh6e_large.jpg',
+                kategori: 'laptop'
+            },
+            {
+                nama: 'Asus',
+                harga: 6000000,
+                gambar: 'https://www.apple.com/v/macbook-air-13-and-15-m2/b/images/overview/design/design-hero_endframe__olurqzgtbh6e_large.jpg',
+                kategori: 'laptop'
+            },
+            {
+                nama: 'Iphone',
+                harga: 23000000,
+                gambar: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-7inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923784161',
+                kategori: 'handphone'
+            },
+            {
+                nama: 'Nokia',
+                harga: 1000000,
+                gambar: 'https://fdn2.mobgsm.com/vv/pics/nokia/nokia-lumia-520-2.jpg',
+                kategori: 'hanphone'
+            } 
+        ]
+
+        const data = document.getElementById('data');
+
+
+        produk.forEach(el => {
+            const row = document.createElement('tr');
+            const nama = document.createElement('td');
+            nama.innerText = el.nama;
+
+            const harga = document.createElement('td');
+            harga.innerText = 'IDR ' + el.harga;
+
+            const gambar = document.createElement('td');
+            const url = document.createElement('img');
+            url.src = el.gambar;
+            url.width = 100;
+
+            const kategori = document.createElement('td');
+            kategori.innerText = el.kategori;
+
+            data.appendChild(row);
+            row.appendChild(nama);
+            row.appendChild(harga);
+            row.appendChild(gambar);
+            gambar.appendChild(url);
+            row.appendChild(kategori);
+        });
+
+        // insert row using event listener
+
+        const tambah = document.getElementById('btn-tambah');
+
+        tambah.addEventListener('click', function () {
+            const barisBaru = document.createElement('tr');
+            const namaBaru = document.createElement('td');
+            namaBaru.innerText = 'Nama Produk Baru';
+            const hargaBaru = document.createElement('td');
+            hargaBaru.innerText = 'IDR 17000';
+            const gambarBaru = document.createElement('td');
+            const urlBaru = document.createElement('img');
+            urlBaru.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFfUnCIPVTtIm4RpwIrOehAhXxNXeuKY2TZQ&usqp=CAU';
+            urlBaru.width =100;
+            const kategoriBaru = document.createElement('td');
+            kategoriBaru.innerText = 'Unkown';
+
+            data.appendChild(barisBaru);
+            barisBaru.appendChild(namaBaru);
+            barisBaru.appendChild(hargaBaru);
+            barisBaru.appendChild(gambarBaru);
+            gambarBaru.appendChild(urlBaru);
+            barisBaru.appendChild(kategoriBaru);
+        });
+    </script>
+</body>
+
+</html>

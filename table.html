@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table class="container">
+        <div class="table-data" id="table-data">
+            <thead>
+                <th>Nama Lengkap</th>
+                <th>Umur</th>
+                <th>Jurusan</th>
+                <th>Alamat</th>
+            </thead>
+            <tbody>
+                <tr id="data"></tr>
+            </tbody>
+        </div>
+    </table>
+
+
+
+
+
+    <script>
+        const nama = {
+            name : "gwejh",
+            umur : 15,
+            jurusan : 'Software engineer',
+            alamat : 'jl srikandi perumahan alpha cluster no 88B harjamukti depok'
+        }
+
+        const loop = Object.values(nama);
+        loop.forEach(value => {
+            const obj = document.getElementById('data');
+            const dataValue = document.createElement('td');
+            dataValue.innerText = value;
+
+            obj.append(dataValue);
+
+        })
+
+
+        
+
+
+
+    </script>
+</body>
+</html>
